@@ -1,7 +1,8 @@
 package com.devsuperior.bds04.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,15 +13,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_city")
-public class City {
+public class City implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	
-	@OneToMany(mappedBy = "city")
-	private List<Event> events = new ArrayList<>();
+	@OneToMany(mappedBy = "cities")
+	private Set<Event> events = new HashSet<>();
 	
 	public City() {
 	}
@@ -46,7 +49,7 @@ public class City {
 		this.name = name;
 	}
 
-	public List<Event> getEvents() {
+	public Set<Event> getEvents() {
 		return events;
 	}
 }

@@ -11,6 +11,7 @@ import com.devsuperior.bds04.dto.CityDTO;
 import com.devsuperior.bds04.entities.City;
 import com.devsuperior.bds04.repositories.CityRepository;
 
+
 @Service
 public class CityService {
 
@@ -20,6 +21,13 @@ public class CityService {
 	public List<CityDTO> findAll() {
 		List<City> list = repository.findAll(Sort.by("name"));
 		return list.stream().map(x -> new CityDTO(x)).collect(Collectors.toList());
+	}
+	
+	public CityDTO insert(CityDTO dto) {
+		City entity = new City();
+		entity.setName(dto.getName());
+		entity = repository.save(entity);
+		return new CityDTO(entity);
 	}
 	
 }
