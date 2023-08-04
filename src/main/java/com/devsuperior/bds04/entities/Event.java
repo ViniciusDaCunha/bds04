@@ -12,26 +12,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "tb_event")
 public class Event implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private LocalDate date;
 	private String url;
-	
-	@ManyToOne
-	@JoinColumn(name = "city_id")
-	private City city;
 	
 	@ManyToMany
 	@JoinTable(name = "tb_event_city", 
@@ -42,12 +36,11 @@ public class Event implements Serializable {
 	public Event() {
 	}
 
-	public Event(Long id, String name, LocalDate date, String url, City city) {
+	public Event(Long id, String name, LocalDate date, String url) {
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.url = url;
-		this.city = city;
 	}
 
 	public Long getId() {
@@ -80,14 +73,6 @@ public class Event implements Serializable {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
 	}
 
 	public Set<City> getCities() {

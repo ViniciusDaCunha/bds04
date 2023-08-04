@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+
 import com.devsuperior.bds04.entities.Event;
 import com.devsuperior.bds04.entities.City;
 
@@ -13,9 +18,15 @@ public class EventDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotBlank(message = "Campo requerido")
 	private String name;
+	
+	@FutureOrPresent(message = "A data do evento não pode ser passada")
 	private LocalDate date;
 	private String url;
+	
+	@NotNull(message = "Campo requerido")
 	private Long cityId;
 	
 	public EventDTO() {
@@ -36,7 +47,7 @@ public class EventDTO implements Serializable {
 		name = entity.getName();
 		date = entity.getDate();
 		url = entity.getUrl();
-		cityId = entity.getCity().getId();
+		cityId = entity.getId();
 	}
 	
 	public EventDTO(Event entity, Set<City> cities) {
